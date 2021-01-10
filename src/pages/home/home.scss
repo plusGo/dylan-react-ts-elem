@@ -55,6 +55,8 @@
 }
 
 .citylistul {
+  display: flex;
+  flex-wrap: wrap;
   li {
     float: left;
     text-align: center;

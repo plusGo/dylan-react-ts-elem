@@ -9,3 +9,5 @@ export interface City {
     pinyin?: string
     sort?: number;
 }
+
+export type CityGroup = { [key: string]: City[] };
