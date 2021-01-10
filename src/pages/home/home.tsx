@@ -8,19 +8,27 @@ import {Icon} from 'antd-mobile';
 
 
 export default function Home(): JSX.Element {
+    const [guessCity, setGuessCity] = useState<City>();
+    const [hotCities, setHotCities] = useState<City[]>();
+
     function reloadApplication(): void {
         window.location.reload()
     }
 
-    const [guessCity, setGuessCity] = useState<City>();
 
     const initGuessCity = async () => {
         const guessCity = await CityApi.getGuessCity();
         setGuessCity(guessCity);
     };
 
+    const initHotCities = async () => {
+        const hotCities = await CityApi.getHotCities();
+        setHotCities(hotCities);
+    };
+
     useEffect(() => {
         initGuessCity();
+        initHotCities();
     }, []);
 
     return (
@@ -39,7 +47,13 @@ export default function Home(): JSX.Element {
             <section id="hot_city_container">
                 <h4 className="city_title">热门城市</h4>
                 <ul className="citylistul clear">
-
+                    {
+                        hotCities?.map(($hotCity) =>
+                            <li key={$hotCity?.id}>
+                                <Link key={$hotCity?.id} to={`/city/${$hotCity?.id}`}>{$hotCity?.name}</Link>
+                            </li>
+                        )
+                    }
                 </ul>
             </section>
         </div>
