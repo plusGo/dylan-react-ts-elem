@@ -15,8 +15,18 @@ export class CityApi {
         return ApiResponseAdaptor.adapt<CityGroup>(LocalAxios.get('/cities?type=group'))
     }
 
-    static getCityById(id:string):Promise<City>{
+    static getCityById(id: string): Promise<City> {
         return ApiResponseAdaptor.adapt<City>(LocalAxios.get(`/cities/${id}`))
+    }
+
+    static searchPlace(cityId: number, keyword: string): Promise<City[]> {
+        return ApiResponseAdaptor.adapt<City[]>(LocalAxios.get('/cities', {
+            params: {
+                type: 'search',
+                city_id: cityId,
+                keyword: keyword
+            }
+        }))
     }
 
 }
