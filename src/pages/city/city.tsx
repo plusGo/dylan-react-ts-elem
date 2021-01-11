@@ -1,31 +1,27 @@
-import React, {ReactNode, useReducer, useState} from 'react';
-import {Button} from 'antd-mobile';
+import React, {ReactNode, useEffect, useState} from 'react';
+import './city.scss';
+import Header from '../../component/header/header';
+import {Link} from 'react-router-dom';
+import {City} from '../../model/city.model';
+import {CityApi} from '../../service/api/city.api';
 
-const countReducer = (state: any, action: any) => {
-    if (action.type === 'countUp') {
-        return {
-            ...state,
-            count: state.count + 1
-        };
-    } else {
-        return state;
-    }
-};
 
-export default function City(): ReactNode {
+export default function CityPage(props: any): ReactNode {
     const [title, setTitle] = useState('hello,city');
-    const [state, dispatch] = useReducer(countReducer, {count: 0});
+    const [currentCity, setCurrentCity] = useState<City>();
 
-    function onInputChange(event: any): void {
-        console.log(event.target.value);
-        setTitle(event.target.value);
-        dispatch({type: 'countUp'});
-    }
+    const initCurrentCity = async (id: string) => {
+        setCurrentCity(await CityApi.getCityById(id));
+    };
+
+    useEffect(() => {
+        initCurrentCity(props.match.params.id);
+    }, [props.match]);
 
     return (<div>
-        <Button>我是按钮</Button>
-        <div>{title ? title : 'hello,city'}</div>
-        <div>改变了{state.count}次</div>
-        <input type="text" onInput={onInputChange}/>
+        <Header goBack={true} title={currentCity?.name}>
+            <Link to="/home" className="change_city">
+            </Link>
+        </Header>
     </div>)
 }

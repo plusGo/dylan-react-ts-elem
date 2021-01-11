@@ -12,7 +12,7 @@ export default class RouterOutlet extends React.Component {
             <HashRouter>
                 <Switch>
                     <Route path="/home" component={loadHomePage}/>
-                    <Route path="/city" component={loadCityPage}/>
+                    <Route path="/city/:id" component={loadCityPage}/>
                     <Redirect exact from="/" to="/home"/>
                 </Switch>
             </HashRouter>

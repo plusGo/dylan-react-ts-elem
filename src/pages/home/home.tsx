@@ -7,7 +7,7 @@ import {City, CityGroup} from '../../model/city.model';
 import {Icon} from 'antd-mobile';
 
 
-export default function Home(): JSX.Element {
+export default function HomePage(): JSX.Element {
     const [guessCity, setGuessCity] = useState<City>();
     const [hotCities, setHotCities] = useState<City[]>();
     const [cityGroup, setCityGroup] = useState<CityGroup>();
@@ -52,11 +52,11 @@ export default function Home(): JSX.Element {
                 <h4 className="city_title">热门城市</h4>
                 <ul className="citylistul clear">
                     {
-                        hotCities?.map(($hotCity) =>
+                        hotCities ? hotCities?.map(($hotCity) =>
                             <li key={$hotCity?.id}>
                                 <Link key={$hotCity?.id} to={`/city/${$hotCity?.id}`}>{$hotCity?.name}</Link>
                             </li>
-                        )
+                        ) : null
                     }
                 </ul>
             </section>
@@ -65,7 +65,7 @@ export default function Home(): JSX.Element {
                     {cityGroup ? Object.keys(cityGroup)
                         .sort()
                         .map(($key, $index) => (
-                            <li className="letter_classify_li">
+                            <li key={$key} className="letter_classify_li">
                                 <h4 className="city_title">{$key}{$index === 0 ? <span>(按字母排序)</span> : null}</h4>
                                 <ul className="groupcity_name_container citylistul clear">
                                     {cityGroup[$key].map($city => (

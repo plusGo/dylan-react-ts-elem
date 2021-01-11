@@ -15,4 +15,8 @@ export class CityApi {
         return ApiResponseAdaptor.adapt<CityGroup>(LocalAxios.get('/cities?type=group'))
     }
 
+    static getCityById(id:string):Promise<City>{
+        return ApiResponseAdaptor.adapt<City>(LocalAxios.get(`/cities/${id}`))
+    }
+
 }

@@ -12,6 +12,9 @@
   @include wh(0.6rem, 1rem);
   line-height: 2.2rem;
   margin-left: .4rem;
+  .am-icon{
+    color: #fff;
+  }
 }
 .head_login{
   right: 0.55rem;
