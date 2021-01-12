@@ -11,9 +11,12 @@ import {RouterProps} from '../../model/props/router-props.interface';
 
 export default function CityPage(props: RouterProps): ReactNode {
     const [currentCity, setCurrentCity] = useState<City>();
-    const [historyTitle, setHistoryTitle] = useState<boolean>();
     const [placeList, setPlaceList] = useState<Place[]>([]);
     const [searchWord, setSearchWord] = useState<string>('');
+
+    const [historyTitle, setHistoryTitle] = useState<boolean>();
+    const [placeHistory, setPlaceHistory] = useState<any[]>();
+
 
     const initCurrentCity = async (id: string) => {
         setCurrentCity(await CityApi.getCityById(id));
