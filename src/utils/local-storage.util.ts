@@ -16,7 +16,7 @@ export class LocalStorageUtil {
         const data = window.localStorage.getItem(key);
         if (data) {
             if (data.startsWith(LocalStorageUtil.LOCAL_STORAGE_PREFIX_KEY)) {
-                return JSON.parse(data.substring(0, LocalStorageUtil.LOCAL_STORAGE_PREFIX_KEY.length));
+                return JSON.parse(data.substring(LocalStorageUtil.LOCAL_STORAGE_PREFIX_KEY.length));
             } else {
                 return data as any;
             }

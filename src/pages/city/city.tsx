@@ -7,15 +7,15 @@ import {CityApi} from '../../service/api/city.api';
 import {PlaceApi} from '../../service/api/place.api';
 import {Place} from '../../model/place';
 import {RouterProps} from '../../model/props/router-props.interface';
+import {LocalStorageUtil} from '../../utils/local-storage.util';
 
-
+const PLACE_HISTORY_KEY = 'place_history_key';
 export default function CityPage(props: RouterProps): ReactNode {
     const [currentCity, setCurrentCity] = useState<City>();
     const [placeList, setPlaceList] = useState<Place[]>([]);
     const [searchWord, setSearchWord] = useState<string>('');
 
     const [historyTitle, setHistoryTitle] = useState<boolean>();
-    const [placeHistory, setPlaceHistory] = useState<any[]>();
 
 
     const initCurrentCity = async (id: string) => {
@@ -24,15 +24,27 @@ export default function CityPage(props: RouterProps): ReactNode {
 
     const searchPlace = async () => {
         if (currentCity && currentCity.id) {
-            setPlaceList(await PlaceApi.searchPlace(currentCity.id, searchWord));
+            const places = await PlaceApi.searchPlace(currentCity.id, searchWord);
+            setPlaceList(places);
+            setHistoryTitle(false);
+        }
+    };
+
+    const initPlaceHistory = () => {
+        const placeHistory = LocalStorageUtil.getStore<Place[]>(PLACE_HISTORY_KEY);
+        if (placeHistory) {
+            setPlaceList(placeHistory);
         }
     };
 
     const clearAll = () => {
+        LocalStorageUtil.removeStore(PLACE_HISTORY_KEY);
         setPlaceList([]);
     };
 
     const nextPage = (place: Place) => {
+        const placeHistory = LocalStorageUtil.getStore<Place[]>(PLACE_HISTORY_KEY) || [];
+        LocalStorageUtil.setStore(PLACE_HISTORY_KEY, [...placeHistory?.filter($place => $place.geohash !== place.geohash), place]);
         props.history.push({pathName: '/msite', query: {geohash: place.geohash}})
     };
 
@@ -41,8 +53,8 @@ export default function CityPage(props: RouterProps): ReactNode {
     }, [props.match]);
 
     useEffect(() => {
-        console.log(props);
-    }, [searchWord]);
+        initPlaceHistory();
+    }, []);
 
     return (<div className="city_container">
             <Header goBack={true} title={currentCity?.name}>
@@ -73,9 +85,9 @@ export default function CityPage(props: RouterProps): ReactNode {
                     ))
                 }
             </ul>
-            {(historyTitle && placeList.length) ?
+            {(placeList && placeList.length !== 0) ?
                 <footer onClick={clearAll} className="clear_all_history">清空所有</footer> : null}
-            {(placeList.length) ? <div className="search_none_place">很抱歉！无搜索结果</div> : null}
+            {(!placeList || placeList.length === 0) ? <div className="search_none_place">很抱歉！无搜索结果</div> : null}
 
 
         </div>
