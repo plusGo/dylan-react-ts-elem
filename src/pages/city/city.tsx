@@ -51,7 +51,7 @@ export default function CityPage(props: RouterProps): ReactNode {
 
     useEffect(() => {
         initCurrentCity(props.match.params.id);
-    }, [props.match]);
+    }, [props.match.params.id]);
 
     useEffect(() => {
         initPlaceHistory();
