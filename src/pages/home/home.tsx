@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import Header from '../../component/header/header';
 import {Link} from 'react-router-dom';
 import './home.scss';
@@ -36,7 +36,7 @@ export default function HomePage(): JSX.Element {
     }, []);
 
     return (
-        <div>
+        <Fragment>
             <Header logo={<span onClick={reloadApplication} className="head_logo">ele.me</span>}/>
             <nav className="city_nav">
                 <div className="city_tip">
@@ -78,6 +78,6 @@ export default function HomePage(): JSX.Element {
                         )) : null}
                 </ul>
             </section>
-        </div>
+        </Fragment>
     )
 }
