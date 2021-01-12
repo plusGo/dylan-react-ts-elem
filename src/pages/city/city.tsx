@@ -34,6 +34,7 @@ export default function CityPage(props: RouterProps): ReactNode {
         const placeHistory = LocalStorageUtil.getStore<Place[]>(PLACE_HISTORY_KEY);
         if (placeHistory) {
             setPlaceList(placeHistory);
+            setHistoryTitle(true);
         }
     };
 
