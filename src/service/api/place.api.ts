@@ -2,11 +2,14 @@ import {City} from '../../model/dto/city.model';
 import {LocalAxios} from '../../config/api.config';
 import {ApiResponseAdaptor} from './api-response.adaptor';
 import {Place} from '../../model/dto/place';
+import {Injectable, iocInject} from '../context/decoration';
 
+@Injectable()
 export class PlaceApi {
+    apiResponseAdaptor = iocInject<ApiResponseAdaptor>(ApiResponseAdaptor);
 
-    static searchPlace(cityId: number, keyword: string): Promise<City[]> {
-        return ApiResponseAdaptor.adapt<Place[]>(LocalAxios.get('/pois', {
+    searchPlace(cityId: number, keyword: string): Promise<City[]> {
+        return this.apiResponseAdaptor.adapt<Place[]>(LocalAxios.get('/pois', {
             params: {
                 type: 'search',
                 city_id: cityId,

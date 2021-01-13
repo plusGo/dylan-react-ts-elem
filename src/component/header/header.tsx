@@ -4,6 +4,7 @@ import {Icon} from 'antd-mobile';
 import {Link, useHistory} from 'react-router-dom';
 import {AuthService} from '../../service/auth/auth-service';
 import {User} from '../../model/dto/user';
+import {iocInject} from '../../service/context/decoration';
 
 export interface HeaderPropsType {
     title?: string;
@@ -15,22 +16,23 @@ export interface HeaderPropsType {
 }
 
 export default function Header(props: HeaderPropsType): JSX.Element {
+    const authService = iocInject<AuthService>(AuthService);
     const history = useHistory();
     const [userInfo, setUserInfo] = useState<User>();
 
     useEffect(() => {
         initUserInfo();
     }, []);
+
     const goBack = () => {
         history.goBack();
     };
 
     const initUserInfo = async () => {
-        const user = await AuthService.getCurrentUser()
+        const user = await authService.getCurrentUser();
         if (user) {
             setUserInfo(user);
         }
-        console.log(user);
     };
 
     return (
@@ -47,7 +49,7 @@ export default function Header(props: HeaderPropsType): JSX.Element {
             {
                 props?.signinUp ? (
                     <Link className="head_login" to={userInfo ? '/profile' : 'login'}>
-                        {userInfo ? <i className="ai-user"/> :  <span className="login_span" >登录|注册</span>}
+                        {userInfo ? <i className="ai-user"/> : <span className="login_span">登录|注册</span>}
 
                     </Link>
                 ) : null

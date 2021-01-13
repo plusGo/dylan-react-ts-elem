@@ -1,24 +1,27 @@
 import {User} from '../../model/dto/user';
 import {UserApi} from '../api/user.api';
+import {iocInject, Injectable} from '../context/decoration';
 
+@Injectable()
 export class AuthService {
     private static CURRENT_USER: User;
+    private userApi = iocInject<UserApi>(UserApi);
 
-    static isLogin(): Promise<boolean> {
-        return AuthService.getCurrentUser()
+    isLogin(): Promise<boolean> {
+        return this.getCurrentUser()
             .then(user => !!user);
     }
 
-    static setCurrentUser(user: User): void {
+    setCurrentUser(user: User): void {
         AuthService.CURRENT_USER = user;
     }
 
-    static async getCurrentUser(): Promise<User | null> {
+    async getCurrentUser(): Promise<User | null> {
         return new Promise(((resolve, reject) => {
             if (AuthService.CURRENT_USER) {
                 resolve(AuthService.CURRENT_USER);
             } else {
-                UserApi.getCurrentUser()
+                this.userApi.getCurrentUser()
                     .then($user => {
                         resolve($user);
                         AuthService.CURRENT_USER = $user;

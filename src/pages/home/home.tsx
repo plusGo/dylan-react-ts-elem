@@ -5,10 +5,13 @@ import './home.scss';
 import {CityApi} from '../../service/api/city.api';
 import {City, CityGroup} from '../../model/dto/city.model';
 import {Icon} from 'antd-mobile';
-import {Consumer} from '../../index';
+import {Consumer} from '../../service/context';
+import {iocInject} from '../../service/context/decoration';
 
 
 export default function HomePage(): JSX.Element {
+    const cityApi = iocInject<CityApi>(CityApi);
+
     const [guessCity, setGuessCity] = useState<City>();
     const [hotCities, setHotCities] = useState<City[]>();
     const [cityGroup, setCityGroup] = useState<CityGroup>();
@@ -25,15 +28,15 @@ export default function HomePage(): JSX.Element {
 
 
     const initGuessCity = async () => {
-        setGuessCity(await CityApi.getGuessCity());
+        setGuessCity(await cityApi.getGuessCity());
     };
 
     const initHotCities = async () => {
-        setHotCities(await CityApi.getHotCities());
+        setHotCities(await cityApi.getHotCities());
     };
 
     const initCityGroup = async () => {
-        setCityGroup(await CityApi.getCityGroup());
+        setCityGroup(await cityApi.getCityGroup());
     };
 
 

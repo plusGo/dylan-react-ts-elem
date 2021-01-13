@@ -165,6 +165,7 @@
     "babel-plugin-import": "^1.13.3",
     "customize-cra": "^1.0.0",
     "http-proxy-middleware": "^1.0.6",
-    "node-sass": "^4.9.4"
+    "node-sass": "^4.9.4",
+    "reflect-metadata": "^0.1.13"
   }
 }

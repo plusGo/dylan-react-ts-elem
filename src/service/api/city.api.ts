@@ -1,26 +1,30 @@
 import {City, CityGroup} from '../../model/dto/city.model';
 import {LocalAxios} from '../../config/api.config';
 import {ApiResponseAdaptor} from './api-response.adaptor';
+import {Injectable, iocInject} from '../context/decoration';
 
+@Injectable()
 export class CityApi {
-    static getGuessCity(): Promise<City> {
-        return ApiResponseAdaptor.adapt<City>(LocalAxios.get('/cities?type=guess'));
+    apiResponseAdaptor = iocInject<ApiResponseAdaptor>(ApiResponseAdaptor);
+
+    getGuessCity(): Promise<City> {
+        return this.apiResponseAdaptor.adapt<City>(LocalAxios.get('/cities?type=guess'));
     }
 
-    static getHotCities(): Promise<City[]> {
-        return ApiResponseAdaptor.adapt<City[]>(LocalAxios.get('/cities?type=hot'));
+    getHotCities(): Promise<City[]> {
+        return this.apiResponseAdaptor.adapt<City[]>(LocalAxios.get('/cities?type=hot'));
     }
 
-    static getCityGroup(): Promise<CityGroup> {
-        return ApiResponseAdaptor.adapt<CityGroup>(LocalAxios.get('/cities?type=group'))
+    getCityGroup(): Promise<CityGroup> {
+        return this.apiResponseAdaptor.adapt<CityGroup>(LocalAxios.get('/cities?type=group'))
     }
 
-    static getCityById(id: string): Promise<City> {
-        return ApiResponseAdaptor.adapt<City>(LocalAxios.get(`/cities/${id}`))
+    getCityById(id: string): Promise<City> {
+        return this.apiResponseAdaptor.adapt<City>(LocalAxios.get(`/cities/${id}`))
     }
 
-    static searchPlace(cityId: number, keyword: string): Promise<City[]> {
-        return ApiResponseAdaptor.adapt<City[]>(LocalAxios.get('/cities', {
+    searchPlace(cityId: number, keyword: string): Promise<City[]> {
+        return this.apiResponseAdaptor.adapt<City[]>(LocalAxios.get('/cities', {
             params: {
                 type: 'search',
                 city_id: cityId,
@@ -28,5 +32,4 @@ export class CityApi {
             }
         }))
     }
-
 }

@@ -8,23 +8,33 @@ import {PlaceApi} from '../../service/api/place.api';
 import {Place} from '../../model/dto/place';
 import {RouterProps} from '../../model/props/router-props.interface';
 import {LocalStorageUtil} from '../../utils/local-storage.util';
+import {iocInject} from '../../service/context/decoration';
 
 const PLACE_HISTORY_KEY = 'place_history_key';
 export default function CityPage(props: RouterProps): ReactNode {
+    const [cityApi, placeApi] = iocInject<[CityApi, PlaceApi]>([CityApi, PlaceApi]);
+
     const [currentCity, setCurrentCity] = useState<City>();
     const [placeList, setPlaceList] = useState<Place[]>([]);
     const [searchWord, setSearchWord] = useState<string>('');
 
     const [historyTitle, setHistoryTitle] = useState<boolean>();
 
+    useEffect(() => {
+        initCurrentCity(props.match.params.id);
+    }, [props.match.params.id]);
+
+    useEffect(() => {
+        initPlaceHistory();
+    }, []);
 
     const initCurrentCity = async (id: string) => {
-        setCurrentCity(await CityApi.getCityById(id));
+        setCurrentCity(await cityApi.getCityById(id));
     };
 
     const searchPlace = async () => {
         if (currentCity && currentCity.id) {
-            const places = await PlaceApi.searchPlace(currentCity.id, searchWord);
+            const places = await placeApi.searchPlace(currentCity.id, searchWord);
             setPlaceList(places);
             setHistoryTitle(false);
         }
@@ -49,13 +59,6 @@ export default function CityPage(props: RouterProps): ReactNode {
         props.history.push({pathName: '/msite', query: {geohash: place.geohash}})
     };
 
-    useEffect(() => {
-        initCurrentCity(props.match.params.id);
-    }, [props.match.params.id]);
-
-    useEffect(() => {
-        initPlaceHistory();
-    }, []);
 
     return (<div className="city_container">
             <Header showBackBtn={true} title={currentCity?.name}>
