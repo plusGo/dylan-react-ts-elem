@@ -69,7 +69,8 @@ export default function CityPage(props: RouterProps): ReactNode {
                            value={searchWord} onChange={e => setSearchWord(e.target.value)}/>
                 </div>
                 <div>
-                    <input autoComplete="off" onClick={searchPlace} type="submit" name="submit" className="city_submit input_style"
+                    <input autoComplete="off" onClick={searchPlace} type="submit" name="submit"
+                           className="city_submit input_style"
                            value="提交"/>
                 </div>
             </form>

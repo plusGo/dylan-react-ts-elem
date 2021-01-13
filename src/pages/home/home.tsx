@@ -5,6 +5,7 @@ import './home.scss';
 import {CityApi} from '../../service/api/city.api';
 import {City, CityGroup} from '../../model/dto/city.model';
 import {Icon} from 'antd-mobile';
+import {Consumer} from '../../index';
 
 
 export default function HomePage(): JSX.Element {
@@ -38,7 +39,11 @@ export default function HomePage(): JSX.Element {
 
     return (
         <Fragment>
-            <Header signinUp={true} logo={<span onClick={reloadApplication} className="head_logo">ele.me</span>}/>
+            <Consumer>{
+                ({appTitle}) =>
+                    <Header signinUp={true}
+                            logo={<span onClick={reloadApplication} className="head_logo">{appTitle}</span>}/>
+            }</Consumer>
             <nav className="city_nav">
                 <div className="city_tip">
                     <span>当前定位城市：</span>
