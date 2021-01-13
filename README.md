@@ -5,3 +5,7 @@
 ## NodeElem:https://github.com/bailicangdu/node-elm
 
 ## 移动端demo地址：https://cangdu.org/elm/#/home
+
+## todo list
+- [] 404界面
+- [] 登录界面
