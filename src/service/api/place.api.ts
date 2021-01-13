@@ -1,7 +1,7 @@
-import {City} from '../../model/city.model';
+import {City} from '../../model/dto/city.model';
 import {LocalAxios} from '../../config/api.config';
 import {ApiResponseAdaptor} from './api-response.adaptor';
-import {Place} from '../../model/place';
+import {Place} from '../../model/dto/place';
 
 export class PlaceApi {
 

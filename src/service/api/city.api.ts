@@ -1,4 +1,4 @@
-import {City, CityGroup} from '../../model/city.model';
+import {City, CityGroup} from '../../model/dto/city.model';
 import {LocalAxios} from '../../config/api.config';
 import {ApiResponseAdaptor} from './api-response.adaptor';
 

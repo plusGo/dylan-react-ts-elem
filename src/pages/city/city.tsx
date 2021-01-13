@@ -2,10 +2,10 @@ import React, {ReactNode, useEffect, useState} from 'react';
 import './city.scss';
 import Header from '../../component/header/header';
 import {Link} from 'react-router-dom';
-import {City} from '../../model/city.model';
+import {City} from '../../model/dto/city.model';
 import {CityApi} from '../../service/api/city.api';
 import {PlaceApi} from '../../service/api/place.api';
-import {Place} from '../../model/place';
+import {Place} from '../../model/dto/place';
 import {RouterProps} from '../../model/props/router-props.interface';
 import {LocalStorageUtil} from '../../utils/local-storage.util';
 
@@ -58,7 +58,7 @@ export default function CityPage(props: RouterProps): ReactNode {
     }, []);
 
     return (<div className="city_container">
-            <Header goBack={true} title={currentCity?.name}>
+            <Header showBackBtn={true} title={currentCity?.name}>
                 <Link to="/home" className="change_city">
                 </Link>
             </Header>

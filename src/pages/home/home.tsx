@@ -3,7 +3,7 @@ import Header from '../../component/header/header';
 import {Link} from 'react-router-dom';
 import './home.scss';
 import {CityApi} from '../../service/api/city.api';
-import {City, CityGroup} from '../../model/city.model';
+import {City, CityGroup} from '../../model/dto/city.model';
 import {Icon} from 'antd-mobile';
 
 
@@ -12,9 +12,15 @@ export default function HomePage(): JSX.Element {
     const [hotCities, setHotCities] = useState<City[]>();
     const [cityGroup, setCityGroup] = useState<CityGroup>();
 
-    function reloadApplication(): void {
+    useEffect(() => {
+        initGuessCity();
+        initHotCities();
+        initCityGroup();
+    }, []);
+
+    const reloadApplication = () => {
         window.location.reload()
-    }
+    };
 
 
     const initGuessCity = async () => {
@@ -29,15 +35,10 @@ export default function HomePage(): JSX.Element {
         setCityGroup(await CityApi.getCityGroup());
     };
 
-    useEffect(() => {
-        initGuessCity();
-        initHotCities();
-        initCityGroup();
-    }, []);
 
     return (
         <Fragment>
-            <Header logo={<span onClick={reloadApplication} className="head_logo">ele.me</span>}/>
+            <Header signinUp={true} logo={<span onClick={reloadApplication} className="head_logo">ele.me</span>}/>
             <nav className="city_nav">
                 <div className="city_tip">
                     <span>当前定位城市：</span>
