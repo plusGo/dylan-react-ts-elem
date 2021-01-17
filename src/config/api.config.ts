@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export const LocalAxios = axios.create({
-    baseURL: '/api/v1/',
+    baseURL: '/api/',
     timeout: 6000,
 });

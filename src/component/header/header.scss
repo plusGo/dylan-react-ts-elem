@@ -9,7 +9,10 @@
 }
 .head_goback{
   left: 0.4rem;
-  @include wh(0.6rem, 1rem);
+  display: flex;
+  align-items: center;
+  @include wh(0.6rem, 100%);
+  transform: scale(2);
   line-height: 2.2rem;
   margin-left: .4rem;
   .am-icon{

@@ -8,7 +8,7 @@ export class UserApi {
     apiResponseAdaptor = iocInject<ApiResponseAdaptor>(ApiResponseAdaptor);
 
     getCurrentUser(): Promise<User> {
-        return this.apiResponseAdaptor.adapt<User>(LocalAxios.get('/user'))
+        return this.apiResponseAdaptor.adapt<User>(LocalAxios.get('/v1/user'))
     }
 
 }

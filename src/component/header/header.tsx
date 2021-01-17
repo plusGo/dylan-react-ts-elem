@@ -14,7 +14,7 @@ export interface HeaderPropsType {
     showBackBtn?: boolean;
     signinUp?: boolean;
 }
-
+ 
 export const Header = (props: HeaderPropsType): JSX.Element => {
     const authService = iocInject<AuthService>(AuthService);
     const history = useHistory();

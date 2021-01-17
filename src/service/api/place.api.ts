@@ -9,7 +9,7 @@ export class PlaceApi {
     apiResponseAdaptor = iocInject<ApiResponseAdaptor>(ApiResponseAdaptor);
 
     searchPlace(cityId: number, keyword: string): Promise<City[]> {
-        return this.apiResponseAdaptor.adapt<Place[]>(LocalAxios.get('/pois', {
+        return this.apiResponseAdaptor.adapt<Place[]>(LocalAxios.get('/v1/pois', {
             params: {
                 type: 'search',
                 city_id: cityId,
