@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import Header from '../../component/header/header';
+import {Header} from '../../component/header/header';
 import {Link} from 'react-router-dom';
 import './home.scss';
 import {CityApi} from '../../service/api/city.api';

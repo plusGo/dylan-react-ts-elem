@@ -15,7 +15,7 @@ export interface HeaderPropsType {
     signinUp?: boolean;
 }
 
-export default function Header(props: HeaderPropsType): JSX.Element {
+export const Header = (props: HeaderPropsType): JSX.Element => {
     const authService = iocInject<AuthService>(AuthService);
     const history = useHistory();
     const [userInfo, setUserInfo] = useState<User>();
@@ -64,4 +64,4 @@ export default function Header(props: HeaderPropsType): JSX.Element {
             {props?.children}
         </header>
     )
-}
+};

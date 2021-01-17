@@ -1,6 +1,6 @@
-import React, {ReactNode, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './city.scss';
-import Header from '../../component/header/header';
+import {Header} from '../../component/header/header';
 import {Link} from 'react-router-dom';
 import {City} from '../../model/dto/city.model';
 import {CityApi} from '../../service/api/city.api';
@@ -11,7 +11,7 @@ import {LocalStorageUtil} from '../../utils/local-storage.util';
 import {iocInject} from '../../service/context/decoration';
 
 const PLACE_HISTORY_KEY = 'place_history_key';
-export default function CityPage(props: RouterProps): ReactNode {
+export default function CityPage(props: RouterProps): JSX.Element {
     const [cityApi, placeApi] = iocInject<[CityApi, PlaceApi]>([CityApi, PlaceApi]);
 
     const [currentCity, setCurrentCity] = useState<City>();

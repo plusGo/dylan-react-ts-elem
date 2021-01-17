@@ -4,11 +4,13 @@ interface IProps {
     component: any;
 }
 
+
 /**
  * 异步加载模块
  * @params {*} importComponent
  */
 export default function asyncComponent(importComponent: Promise<any>) {
+
     class AsyncComponent extends React.Component<IProps, any> {
         constructor(props: any) {
             super(props);
@@ -20,6 +22,7 @@ export default function asyncComponent(importComponent: Promise<any>) {
 
         async componentDidMount() {
             const {default: component} = await importComponent;
+            console.log(component);
             this.setState({component});
         }
 
