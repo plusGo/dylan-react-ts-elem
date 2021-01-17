@@ -1,10 +1,10 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Header} from '../../component/header/header';
 import {Link} from 'react-router-dom';
 import './home.scss';
 import {CityApi} from '../../service/api/city.api';
 import {City, CityGroup} from '../../model/dto/city.model';
-import {Icon} from 'antd-mobile';
+import {Icon, Flex} from 'antd-mobile';
 import {Consumer} from '../../service/context';
 import {iocInject} from '../../service/context/decoration';
 
@@ -84,7 +84,7 @@ export default function HomePage(): JSX.Element {
                                     ))}
                                 </ul>
                             </li>
-                        )) : null}
+                        )) : <Flex justify='center'><Icon type='loading' size='md'/></Flex>}
                 </ul>
             </section>
         </div>

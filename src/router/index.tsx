@@ -54,7 +54,7 @@ export default function RouterOutlet(props: RouterProps): JSX.Element {
                         key={location?.pathname}
                         classNames="animated-router-forward"
                         // 动画时间设置为800ms，和css中的需要一致。
-                        timeout={400}
+                        timeout={300}
                     >
                         <Switch location={location}>
                             {
