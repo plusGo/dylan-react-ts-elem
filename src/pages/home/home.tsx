@@ -41,7 +41,7 @@ export default function HomePage(): JSX.Element {
 
 
     return (
-        <Fragment>
+        <div>
             <Consumer>{
                 ({appTitle}) =>
                     <Header signinUp={true}
@@ -87,6 +87,6 @@ export default function HomePage(): JSX.Element {
                         )) : null}
                 </ul>
             </section>
-        </Fragment>
+        </div>
     )
 }

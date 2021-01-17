@@ -3,4 +3,5 @@ export interface RouteConfig {
     path?: string;
     exact?: boolean;
     component?: any;
+    preload?: boolean;
 }
